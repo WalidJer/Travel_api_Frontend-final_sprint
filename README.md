@@ -55,7 +55,7 @@ Each admin page includes:
 
 ---
 
-## 🛠️ Technologies Used
+## Technologies Used
 
 - React 18+
 - CSS
