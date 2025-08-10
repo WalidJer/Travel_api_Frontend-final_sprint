@@ -63,34 +63,6 @@ Each admin page includes:
 - React Router
 - Font Awesome (`@fortawesome/react-fontawesome`)
 - Custom `*.service.js` files for API interaction
-
-## Project Structure
-
-src/
-├── components/
-│ ├── Navbar.jsx
-│ ├── BackButton.jsx
-│ └── BackButtonAdmin.jsx
-├── pages/
-│ ├── HomePage.jsx
-│ ├── FlightsAdminPage.jsx
-│ ├── CityAdminPage.jsx
-│ ├── AirportAdminPage.jsx
-│ ├── PassengerAdminPage.jsx
-│ ├── GateAdminPage.jsx
-│ ├── AircraftAdminPage.jsx
-│ └── AirlineAdminPage.jsx
-├── services/
-│ ├── cityService.js
-│ ├── airportService.js
-│ ├── flightService.js
-│ ├── passengerService.js
-│ ├── gateService.js
-│ ├── aircraftService.js
-│ └── airlineService.js
-└── App.jsx
-
-
 --
 
 ## Running Locally
@@ -116,3 +88,56 @@ The app will run on http://localhost:3000.
 
 ### Backend API
 Make sure the Spring Boot backend is running on the correct port (default http://localhost:8080). All requests are handled through axios in the /services directory.
+
+## AWS Deployment
+The frontend can be deployed to AWS S3 for static website hosting.
+It will connect to the backend API hosted on AWS EC2, which communicates with AWS RDS MySQL.
+
+### 1. Update Axios Base URLs
+In each file inside /src/services, replace the local backend URL:
+
+```
+// Before (local development)
+const API_URL = "http://localhost:8080/cities";
+
+// After (production on AWS)
+const API_URL = "http://<EC2-PUBLIC-IP>:8080/cities";
+Tip: You can store the base URL in a single config file to avoid updating multiple places.
+```
+
+### 2. Build for Production
+```
+npm run build
+```
+This creates a build/ OR dist/ folder containing static HTML, CSS, and JS files.
+
+### 3. Upload to S3
+- Create an S3 bucket with a unique name.
+
+- Enable Static Website Hosting in the bucket properties.
+
+- Upload all files from the dist/ folder.
+
+- Set public access permissions for the files.
+
+- Update CORS configuration in S3 to allow requests from your EC2 domain.
+
+```json
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "PublicReadGetObject",
+      "Effect": "Allow",
+      "Principal": "*",
+      "Action": "s3:GetObject",
+      "Resource": "arn:aws:s3:::travel-app-frontend-walid/*"
+    }
+  ]
+}
+```
+### 4.  Test the Live Application
+Visit the S3 static site URL (or custom domain if configured).
+
+Perform CRUD actions — they should reflect instantly in the RDS database.
+
