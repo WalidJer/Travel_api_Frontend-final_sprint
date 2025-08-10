@@ -1,5 +1,6 @@
 import axios from "axios";
-const BASE_URL = "http://localhost:8080";
+// const BASE_URL = "http://localhost:8080";
+const BASE_URL = "http://54.86.3.244:8080";
 
 export const listFlights = () => axios.get(`${BASE_URL}/flights`);
 export const getArrivalsByAirport = (id) =>
