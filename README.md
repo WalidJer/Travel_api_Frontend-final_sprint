@@ -63,3 +63,56 @@ Each admin page includes:
 - React Router
 - Font Awesome (`@fortawesome/react-fontawesome`)
 - Custom `*.service.js` files for API interaction
+
+## Project Structure
+
+src/
+├── components/
+│ ├── Navbar.jsx
+│ ├── BackButton.jsx
+│ └── BackButtonAdmin.jsx
+├── pages/
+│ ├── HomePage.jsx
+│ ├── FlightsAdminPage.jsx
+│ ├── CityAdminPage.jsx
+│ ├── AirportAdminPage.jsx
+│ ├── PassengerAdminPage.jsx
+│ ├── GateAdminPage.jsx
+│ ├── AircraftAdminPage.jsx
+│ └── AirlineAdminPage.jsx
+├── services/
+│ ├── cityService.js
+│ ├── airportService.js
+│ ├── flightService.js
+│ ├── passengerService.js
+│ ├── gateService.js
+│ ├── aircraftService.js
+│ └── airlineService.js
+└── App.jsx
+
+
+--
+
+## Running Locally
+
+1. **Clone the repository**
+
+```bash
+git clone https://github.com/WalidJer/Travel_api_Frontend-final_sprint.git
+cd Travel_api_Frontend-final_sprint
+```
+2. **Install dependencies**
+
+```bash
+npm install
+```
+3. **Start the server**
+
+```bash
+npm start
+```
+
+The app will run on http://localhost:3000.
+
+### Backend API
+Make sure the Spring Boot backend is running on the correct port (default http://localhost:8080). All requests are handled through axios in the /services directory.
